@@ -5,6 +5,8 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
 
+import Providers from "./providers";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,7 +29,7 @@ export default function RootLayout({
           scaling="100%"
           panelBackground="translucent"
         >
-          {children}
+          <Providers>{children}</Providers>
         </Theme>
       </body>
     </html>
