@@ -1,11 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { IconButton, TextField } from "@radix-ui/themes";
 import { DotsHorizontalIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 export default function SearchProduct() {
   const [searchProduct, setSearchProduct] = useState("");
+
+  const handleReset = () => {
+    setSearchProduct("");
+  };
 
   return (
     <TextField.Root className="w-full max-w-[600px]">
@@ -17,6 +22,7 @@ export default function SearchProduct() {
         placeholder="Search the products..."
         className="py-4"
         onChange={(e: any) => setSearchProduct(e.target.value)}
+        value={searchProduct}
       />
       <TextField.Slot pr="3">
         <IconButton size="2" variant="ghost">
@@ -24,9 +30,16 @@ export default function SearchProduct() {
         </IconButton>
       </TextField.Slot>
       <TextField.Slot>
-        <IconButton className="cursor-pointer">
-          <MagnifyingGlassIcon width="18" height="18" />
-        </IconButton>
+        <Link
+          href={"/search"}
+          as={`/search?product_name=${searchProduct}`}
+          passHref
+          className={`${searchProduct.length ? "" : "search-link-disabled"}`}
+        >
+          <IconButton className="cursor-pointer" onClick={handleReset}>
+            <MagnifyingGlassIcon width="18" height="18" />
+          </IconButton>
+        </Link>
       </TextField.Slot>
     </TextField.Root>
   );
