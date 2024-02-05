@@ -1,15 +1,29 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useSearchProducts } from "@/hooks/searchProducts";
+import { useEffect, useState } from "react";
 
 import NavigationBar from "@/components/navigationMenu/navigationBar";
 import ProductsCart from "@/components/products/productsCart";
 
 export default function SearchProduct() {
   const searchParams = useSearchParams();
-  const search = searchParams.get("product_name");
-  let { data } = useSearchProducts(search);
+  const [search, setSearch] = useState(() => searchParams.get("product_name"));
+  const [data, setData]: any = useState();
+
+  useEffect(() => {
+    setSearch(searchParams.get("product_name"));
+  }, [searchParams]);
+
+  useEffect(() => {
+    searchProduct(search);
+  }, [search]);
+
+  async function searchProduct(search: any) {
+    const response = await fetch(`https://dummyjson.com/products/search?q=${search}`);
+    const data = await response.json();
+    setData(data);
+  }
 
   return (
     <main className="flex min-h-screen flex-col">
