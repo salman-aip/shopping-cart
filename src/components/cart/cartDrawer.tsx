@@ -4,6 +4,7 @@ import { Box, Button, Flex, Heading } from "@radix-ui/themes";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
 import CartItem from "./cartItem";
+import Link from "next/link";
 
 interface DrawerProps {
   isOpen: boolean;
@@ -61,7 +62,7 @@ export default function CartDrawer(props: DrawerProps) {
         })}
 
         <Button className="absolute bottom-0 bg-teal-600 text-white w-full py-3 cursor-pointer">
-          Checkout
+          <Link href={"/checkout"}>Checkout</Link>
         </Button>
       </Drawer>
     </>
