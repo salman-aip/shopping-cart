@@ -31,6 +31,7 @@ export default function CartDrawer(props: DrawerProps) {
             boxSizing: "border-box",
           },
         }}
+        className="relative"
       >
         <Flex justify={"between"} align={"center"} className="px-2 py-4">
           <Heading>Shopping Cart</Heading>
@@ -58,6 +59,10 @@ export default function CartDrawer(props: DrawerProps) {
             />
           );
         })}
+
+        <Button className="absolute bottom-0 bg-teal-600 text-white w-full py-3 cursor-pointer">
+          Checkout
+        </Button>
       </Drawer>
     </>
   );
