@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Drawer } from "@mui/material";
-import { Box, Button, Flex, Heading } from "@radix-ui/themes";
+import { Box, Button, Flex, Heading, Text } from "@radix-ui/themes";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
 import CartItem from "./cartItem";
@@ -13,6 +13,7 @@ interface DrawerProps {
 
 export default function CartDrawer(props: DrawerProps) {
   const cartItems = useSelector((state: any) => state.cart.itemsList);
+  const totalCartPrice = useSelector((state: any) => state.cart.totalPrice);
 
   return (
     <>
@@ -34,7 +35,7 @@ export default function CartDrawer(props: DrawerProps) {
         }}
         className="relative"
       >
-        <Flex justify={"between"} align={"center"} className="px-2 py-4">
+        <Flex justify={"between"} align={"center"} className="px-2 py-4 bg-gray-100">
           <Heading>Shopping Cart</Heading>
           <Button
             variant="solid"
@@ -46,20 +47,31 @@ export default function CartDrawer(props: DrawerProps) {
           </Button>
         </Flex>
 
-        {cartItems.map((item: any) => {
-          return (
-            <CartItem
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              image={item.image}
-              price={item.price}
-              discount={item.discount}
-              totalPrice={item.totalPrice}
-              quantity={item.quantity}
-            />
-          );
-        })}
+        <div className="w-full h-[73dvh] pl-2 overflow-y-scroll">
+          {cartItems.map((item: any) => {
+            return (
+              <CartItem
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                image={item.image}
+                price={item.price}
+                discount={item.discount}
+                totalPrice={item.totalPrice}
+                quantity={item.quantity}
+              />
+            );
+          })}
+        </div>
+
+        <Flex
+          justify={"between"}
+          align={"center"}
+          className="px-2 text-xl font-medium text-gray-600 mt-4 border-t border-b py-4 w-full absolute bottom-16"
+        >
+          <Text>Total</Text>
+          <Text>${totalCartPrice}</Text>
+        </Flex>
 
         <Button className="absolute bottom-0 bg-teal-600 text-white w-full py-3 cursor-pointer">
           <Link href={"/checkout"}>Checkout</Link>
